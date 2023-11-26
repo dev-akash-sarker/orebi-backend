@@ -3,7 +3,7 @@ const express = require("express");
 const { readdirSync } = require("fs");
 const cors = require("cors");
 const dbConnection = require("./config/dbConfig");
-// const _ = require("./route");
+const _ = require("./route");
 const app = express();
 
 // conection to database
@@ -15,9 +15,9 @@ app.use(express.json());
 
 //routes
 // way one
-readdirSync("./routes").map((x) => app.use("/api", require(`./routes/${x}`)));
+//readdirSync("./routes").map((x) => app.use("/api", require(`./routes/${x}`)));
 // way two
-// app.use(_);
+app.use(_);
 
 const port = process.env.PORT || 8000;
 
