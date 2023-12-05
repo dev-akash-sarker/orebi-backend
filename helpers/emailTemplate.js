@@ -13,7 +13,7 @@ async function emailTemplate(email, verify, template) {
     from: "akashsarker210@gmail.com", // sender address
     to: email, // list of receivers
     subject: "Verification OTP", // Subject line
-    text: "Hello world?", // plain text body
+    // text: "Hello world?", // plain text body
     html: template(verify), // html body
   });
 

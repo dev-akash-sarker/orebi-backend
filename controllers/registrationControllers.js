@@ -6,6 +6,7 @@ const User = require("../models/userModels");
 const emailTemplate = require("../helpers/emailTemplate");
 const otpTemplate = require("../helpers/otpTemplate");
 const aleaRNGFactory = require("number-generator/lib/aleaRNGFactory");
+const { generateToken } = require("../helpers/token");
 async function register(req, res) {
   try {
     const {
@@ -61,6 +62,12 @@ async function register(req, res) {
         state,
       });
       userData.save();
+      const token = generateToken(
+        {
+          id: userData._id.toString(),
+        },
+        "7d"
+      );
       const generator = aleaRNGFactory(Date.now());
       const randomOTP = generator.uInt32().toString().substring(0, 4);
       let randomOTPstore = await User.findOneAndUpdate(
@@ -74,6 +81,7 @@ async function register(req, res) {
         success: "Registration Successfull Please Verify Your Email",
         firstname: userData.firstname,
         lastname: userData.lastname,
+        token: token,
         email: userData.email,
       });
     });
