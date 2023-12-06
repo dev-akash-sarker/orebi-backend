@@ -42,6 +42,21 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  bYear: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  bMonth: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  bDay: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   randomOTP: {
     type: String,
     default: null,

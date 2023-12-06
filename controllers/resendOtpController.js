@@ -12,7 +12,19 @@ async function resendOtpController(req, res) {
       { email },
       { $set: { randomOTP: randomOTP } },
       { new: true }
-    );
+    )
+      .then(() => {
+        setTimeout(() => {
+          const removeOTP = User.findOneAndUpdate(
+            { email },
+            { $unset: { randomOTP: "" } },
+            { new: true }
+          );
+        }, 30000);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
 
     res.send({
       message: "OTP resend",
@@ -21,16 +33,6 @@ async function resendOtpController(req, res) {
     res.send({
       message: "OTP not send!",
     });
-  }
-
-  if (existingMail[0].email === email) {
-    setTimeout(() => {
-      const removeOTP = User.findOneAndUpdate(
-        { email },
-        { $unset: { randomOTP: "" } },
-        { new: true }
-      );
-    }, 60000);
   }
 }
 

@@ -20,6 +20,9 @@ async function register(req, res) {
       postCode,
       country,
       state,
+      bYear,
+      bMonth,
+      bDay,
     } = req.body;
 
     if (!nameValidation(firstname)) {
@@ -60,6 +63,9 @@ async function register(req, res) {
         postCode,
         country,
         state,
+        bYear,
+        bMonth,
+        bDay,
       });
       userData.save();
       const token = generateToken(
@@ -83,6 +89,9 @@ async function register(req, res) {
         lastname: userData.lastname,
         token: token,
         email: userData.email,
+        bYear: userData.bYear,
+        bMonth: userData.bMonth,
+        bDay: userData.bDay,
       });
     });
 
