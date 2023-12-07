@@ -12,19 +12,7 @@ async function resendOtpController(req, res) {
       { email },
       { $set: { randomOTP: randomOTP } },
       { new: true }
-    )
-      .then(() => {
-        setTimeout(() => {
-          const removeOTP = User.findOneAndUpdate(
-            { email },
-            { $unset: { randomOTP: "" } },
-            { new: true }
-          );
-        }, 30000);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
+    );
 
     res.send({
       message: "OTP resend",
@@ -34,6 +22,14 @@ async function resendOtpController(req, res) {
       message: "OTP not send!",
     });
   }
+
+  setTimeout(() => {
+    const removeOTP = User.findOneAndUpdate(
+      { email },
+      { $unset: { randomOTP: "" } },
+      { new: true }
+    );
+  }, 30000);
 }
 
 module.exports = resendOtpController;
